@@ -13,7 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GameWorldComponentMixin {
     @Inject(method = "readFromNbt", at = @At("HEAD"))
     private void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup, CallbackInfo ci) {
-        Shooterpunishments.shootInnocentPunishment = Shooterpunishments.ShootInnocentPunishment.valueOf(nbtCompound.getString("shootInnocentPunishment"));
+        if (nbtCompound.getString("shootInnocentPunishment") != null) {
+            Shooterpunishments.shootInnocentPunishment = Shooterpunishments.ShootInnocentPunishment.valueOf(nbtCompound.getString("shootInnocentPunishment"));
+        }
     }
 
     @Inject(method = "writeToNbt", at = @At("HEAD"))
